@@ -74,8 +74,13 @@ public class SoundManager : MonoBehaviour
     public float GetBgmTime(BGM bgm)
     {
         return bgmSources[(int)bgm].time;
+
     }
 
+    public bool IsPlayBgm(BGM bgm)
+    {
+        return bgmSources[(int)bgm].isPlaying;
+    }
 
     public void PlaySE(SE se)
     {
@@ -86,12 +91,10 @@ public class SoundManager : MonoBehaviour
 
     }
 
-
     public void PlayBGM(BGM bgm)
     {
         bgmSources[(int)bgm].Play();
 
     }
-
 
 }

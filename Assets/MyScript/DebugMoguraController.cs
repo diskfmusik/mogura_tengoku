@@ -88,7 +88,8 @@ public class DebugMoguraController : MonoBehaviour
             }
             else
             {
-                ComboManager.Instance.ResetCombo();
+                RecordManager.Instance.Combo = 0;
+                RecordManager.Instance.Miss++;
                 Destroy(gameObject);
             }
         }
@@ -102,24 +103,27 @@ public class DebugMoguraController : MonoBehaviour
         if (transform.position.y > 0.4f)
         {
             CreateJudgeText("perfect_prefab");
-            ScoreManager.Instance.AddScore(1000 /*テキトー*/ + ComboManager.Instance.NowCombo /**/);
-            ComboManager.Instance.AddCombo();
+            RecordManager.Instance.Combo++;
+            RecordManager.Instance.Perfect++;
+            RecordManager.Instance.Score += (1000 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             Destroy(gameObject);
             SoundManager.Instance.PlaySE(SoundManager.SE.Kyouda);
         }
         else if (transform.position.y > 0.2f)
         {
             CreateJudgeText("good_prefab");
-            ScoreManager.Instance.AddScore(500 /*テキトー*/ + ComboManager.Instance.NowCombo /**/);
-            ComboManager.Instance.AddCombo();
+            RecordManager.Instance.Combo++;
+            RecordManager.Instance.Good++;
+            RecordManager.Instance.Score += (500 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             Destroy(gameObject);
             SoundManager.Instance.PlaySE(SoundManager.SE.Pasu);
         }
         else /**/ if (transform.position.y > 0)/**/
         {
             CreateJudgeText("bad_prefab");
-            ScoreManager.Instance.AddScore(100);
-            ComboManager.Instance.ResetCombo();
+            RecordManager.Instance.Combo = 0;
+            RecordManager.Instance.Bad++;
+            RecordManager.Instance.Score += 100;
             Destroy(gameObject);
             SoundManager.Instance.PlaySE(SoundManager.SE.Kon);
         }

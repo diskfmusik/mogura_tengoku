@@ -80,6 +80,7 @@ public class DebugSpawnObj : MonoBehaviour
             }
         }
 
+        Debug.Log("time : " + nowTime);
 
     }
 

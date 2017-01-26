@@ -52,7 +52,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 6;
+    int TotalPlayer = 1;
     bool isPlay_ = false;
     void Update()
     {
@@ -81,6 +81,10 @@ public class SpawnObj : Photon.MonoBehaviour
 
                 case "scene_inGame":
                     update_inGame();
+                    break;
+
+                case "scene_result_0":
+                    update_result_0();
                     break;
 
                 case "scene_result":
@@ -147,9 +151,33 @@ public class SpawnObj : Photon.MonoBehaviour
             }
         }
 
+        //if (Input.GetKeyDown(KeyCode.Space))
+        if (!SoundManager.Instance.IsPlayBgm(SoundManager.BGM.Main))
+        {
+            isPlay_ = false;
+            loopStartNum_ = 0;
+            string name = "scene_result_0";
+            this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
+        }
+
+        /*
+        if (isPlay_)
+            Debug.Log("time : " + nowTime);
+        */
+
+        //Debug.Log("isplay : " + SoundManager.Instance.IsPlayBgm(SoundManager.BGM.Main));
+
+    }
+
+    void update_result_0()
+    {
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            string name = "scene_result";
+            RecordManager.Instance.Reset();
+
+            Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
+            string name = "scene_titleTest";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
         }
 
@@ -161,7 +189,7 @@ public class SpawnObj : Photon.MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
-            string name = "scene_title";
+            string name = "scene_titleTest";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
         }
 

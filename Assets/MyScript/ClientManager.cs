@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -69,6 +70,16 @@ public class ClientManager : MonoBehaviour
                 camera.transform.rotation = Quaternion.Euler(0, 0, 90);
                 break;
             /* */
+
+            case 1:
+                string sname = SceneManager.GetActiveScene().name;
+                if (sname == "scene_inGame")
+                {
+                    camera.transform.position = new Vector3(0, 1, 15);
+                    camera.transform.position = new Vector3(0, 1, -10);
+                    //camera.transform.rotation = Quaternion.Euler(0, 0, 90);
+                }
+                break;
 
             case 2:
                 camera.transform.position = new Vector3(-5f, y, z);

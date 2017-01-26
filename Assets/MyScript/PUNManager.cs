@@ -10,8 +10,7 @@ public class PUNManager : MonoBehaviour
 
     public Text text_;
     private string gameVersion = "v1.00";
-    static int count = 0;
-
+    bool isAwake_ = false;
 
     void Start()
     {
@@ -20,6 +19,8 @@ public class PUNManager : MonoBehaviour
             GameObject.Destroy(this);
             return;
         }
+
+        isAwake_ = true;
 
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
@@ -36,7 +37,6 @@ public class PUNManager : MonoBehaviour
     void OnJoinedLobby()
     {
         string userName = "Name : aaaa";
-        //string userId = "ID : 000" + count++;
         string userId = "ID : 000" + ClientManager.Instance.number_;
         PhotonNetwork.autoCleanUpPlayerObjects = false;
 
@@ -87,6 +87,7 @@ public class PUNManager : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetActiveScene().name != "scene_titleTest") return;
+        if (isAwake_) return;
 
         if (PhotonNetwork.connectionStateDetailed.ToString() != "Joined")
         {
