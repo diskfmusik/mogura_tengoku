@@ -52,7 +52,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 1;
+    int TotalPlayer = 6;
     bool isPlay_ = false;
     void Update()
     {
