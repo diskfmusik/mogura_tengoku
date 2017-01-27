@@ -6,36 +6,48 @@ using System.Collections;
 public class ClientManager : MonoBehaviour
 {
 
-
-    static ClientManager instance_;
-
+    static ClientManager instance_ = null;
     public static ClientManager Instance
     {
-        get { return instance_; }
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("ClientManager");
+                instance_ = obj.AddComponent<ClientManager>();
+            }
+            return instance_;
+        }
     }
-
 
     public int number_;
     private Text numText_;
 
+    //void Awake()
+    //{
+    //    if (instance_)
+    //    {
+    //        GameObject.Destroy(this);
+    //        return;
+    //    }
+
+    //    // シーン切り替え時に破棄しない
+    //    GameObject.DontDestroyOnLoad(this.gameObject);
+    //    instance_ = this;
+
+    //    var obj = GameObject.Find("Canvas/ClientNumber");
+    //    numText_ = obj.GetComponent<Text>();
+
+    //}
 
     void Awake()
     {
-        if (instance_)
-        {
-            GameObject.Destroy(this);
-            return;
-        }
-
-        // シーン切り替え時に破棄しない
-        GameObject.DontDestroyOnLoad(this.gameObject);
-        instance_ = this;
+        DontDestroyOnLoad(gameObject);
 
         var obj = GameObject.Find("Canvas/ClientNumber");
         numText_ = obj.GetComponent<Text>();
-
     }
-
 
     void Update()
     {
@@ -103,10 +115,6 @@ public class ClientManager : MonoBehaviour
                 break;
 
         }
-
-
-
     }
-
 
 }

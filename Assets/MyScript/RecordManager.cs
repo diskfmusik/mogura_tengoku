@@ -17,27 +17,28 @@ public class RecordManager : MonoBehaviour
     static RecordManager instance_ = null;
     public static RecordManager Instance
     {
-        get { return instance_; }
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("RecordManager");
+                instance_ = obj.AddComponent<RecordManager>();
+            }
+            return instance_;
+        }
     }
 
     void Awake()
     {
-        if (instance_)
-        {
-            GameObject.Destroy(this);
-            return;
-        }
-
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
-        instance_ = this;
 
     }
 
     void Update()
     {
         string sname = SceneManager.GetActiveScene().name;
-
 
         switch (sname)
         {

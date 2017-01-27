@@ -8,9 +8,8 @@ public class PUNManager : MonoBehaviour
 
     static private PUNManager instance_ = null;
 
-    public Text text_;
+    Text text_;
     private string gameVersion = "v1.00";
-    bool isAwake_ = false;
 
     void Start()
     {
@@ -20,11 +19,17 @@ public class PUNManager : MonoBehaviour
             return;
         }
 
-        isAwake_ = true;
+        var cm = ClientManager.Instance;
+        var mu = MyUtil.Instance;
+        var mgu = MyGUIUtil.Instance;
+        var sm = SoundManager.Instance;
+        var rm = RecordManager.Instance;
 
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
         instance_ = this;
+
+        text_ = GameObject.Find("Canvas/PUNmng").GetComponent<Text>();
 
         //
         PhotonNetwork.ConnectUsingSettings(gameVersion);
@@ -87,7 +92,7 @@ public class PUNManager : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetActiveScene().name != "scene_titleTest") return;
-        if (isAwake_) return;
+
 
         if (PhotonNetwork.connectionStateDetailed.ToString() != "Joined")
         {

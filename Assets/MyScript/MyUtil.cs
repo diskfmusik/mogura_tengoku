@@ -5,23 +5,24 @@ public class MyUtil : MonoBehaviour
 {
 
     static MyUtil instance_ = null;
-
     static public MyUtil Instance
     {
-        get { return instance_; }
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("MyUtil");
+                instance_ = obj.AddComponent<MyUtil>();
+            }
+            return instance_;
+        }
     }
 
     void Start()
     {
-        if (instance_)
-        {
-            GameObject.Destroy(this);
-            return;
-        }
-
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
-        instance_ = this;
 
     }
 

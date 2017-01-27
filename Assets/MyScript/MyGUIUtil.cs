@@ -5,24 +5,25 @@ public class MyGUIUtil : MonoBehaviour
 {
 
     static MyGUIUtil instance_ = null;
-
     static public MyGUIUtil Instance
     {
-        get { return instance_; }
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("MyGUIUtil");
+                instance_ = obj.AddComponent<MyGUIUtil>();
+            }
+            return instance_;
+        }
     }
 
 
-    void Start()
+    void Awake()
     {
-        if (instance_)
-        {
-            GameObject.Destroy(this);
-            return;
-        }
-
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
-        instance_ = this;
 
     }
 

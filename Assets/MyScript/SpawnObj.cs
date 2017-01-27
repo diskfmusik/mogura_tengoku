@@ -156,6 +156,7 @@ public class SpawnObj : Photon.MonoBehaviour
         {
             isPlay_ = false;
             loopStartNum_ = 0;
+
             string name = "scene_result_0";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
         }

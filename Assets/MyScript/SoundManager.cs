@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     public enum BGM
     {
         Main = 0,
+        Max,
     }
 
 
@@ -17,13 +18,23 @@ public class SoundManager : MonoBehaviour
         Kyouda = 0,
         Pasu,
         Kon,
+        Max,
     }
 
 
     static SoundManager instance_ = null;
     static public SoundManager Instance
     {
-        get { return instance_; }
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("SoundManager");
+                instance_ = obj.AddComponent<SoundManager>();
+            }
+            return instance_;
+        }
     }
 
 
@@ -33,24 +44,36 @@ public class SoundManager : MonoBehaviour
     [SerializeField]
     AudioSource[] seSources;
 
+    /*
+    //public AudioSource[] bgmSources_ = new AudioSource[1];
+    //public AudioSource[] seSources_ = new AudioSource[3];
+    public AudioSource[] bgmSources_;
+    public AudioSource[] seSources_;
+    */
 
     //List<AudioSource> sources = new List<AudioSource>();
 
 
     void Awake()
     {
-        if (instance_)
-        {
-            GameObject.Destroy(this);
-            return;
-        }
-
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
-        instance_ = this;
+
+        /*
+        this.gameObject.AddComponent<AudioSource>();
+        */
+
+        /*
+        bgmSources_ = new AudioSource[1];
+        bgmSources_[0].clip = Resources.Load("Audio/test") as AudioClip;
+
+        seSources_ = new AudioSource[3];
+        seSources_[0].clip = Resources.Load("Audio/kyouda") as AudioClip;
+        seSources_[1].clip = Resources.Load("Audio/pasu") as AudioClip;
+        seSources_[2].clip = Resources.Load("Audio/kon") as AudioClip;
+        */
 
     }
-
 
     void Start()
     {
