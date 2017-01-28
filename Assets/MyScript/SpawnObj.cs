@@ -52,7 +52,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 6;
+    int TotalPlayer = 1;
     bool isPlay_ = false;
     void Update()
     {
@@ -255,7 +255,7 @@ public class SpawnObj : Photon.MonoBehaviour
             {
                 info_.Bpm = float.Parse(s[++idx]);
             }
-            else if (s[idx] == "level")
+            else if (s[idx] == "Level")
             {
                 info_.Level = int.Parse(s[++idx]);
             }

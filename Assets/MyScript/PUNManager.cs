@@ -19,6 +19,8 @@ public class PUNManager : MonoBehaviour
             return;
         }
 
+        Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
+
         var cm = ClientManager.Instance;
         var mu = MyUtil.Instance;
         var mgu = MyGUIUtil.Instance;

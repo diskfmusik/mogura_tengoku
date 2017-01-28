@@ -38,18 +38,21 @@ public class SoundManager : MonoBehaviour
     }
 
 
+    /*
     [SerializeField]
     AudioSource[] bgmSources;
 
     [SerializeField]
     AudioSource[] seSources;
+    /**/
 
-    /*
+
+    /* */
     //public AudioSource[] bgmSources_ = new AudioSource[1];
     //public AudioSource[] seSources_ = new AudioSource[3];
     public AudioSource[] bgmSources_;
     public AudioSource[] seSources_;
-    */
+    /**/
 
     //List<AudioSource> sources = new List<AudioSource>();
 
@@ -59,11 +62,7 @@ public class SoundManager : MonoBehaviour
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
 
-        /*
-        this.gameObject.AddComponent<AudioSource>();
-        */
-
-        /*
+        /* */
         bgmSources_ = new AudioSource[1];
         bgmSources_[0].clip = Resources.Load("Audio/test") as AudioClip;
 
@@ -71,7 +70,7 @@ public class SoundManager : MonoBehaviour
         seSources_[0].clip = Resources.Load("Audio/kyouda") as AudioClip;
         seSources_[1].clip = Resources.Load("Audio/pasu") as AudioClip;
         seSources_[2].clip = Resources.Load("Audio/kon") as AudioClip;
-        */
+        /**/
 
     }
 
@@ -96,18 +95,18 @@ public class SoundManager : MonoBehaviour
 
     public float GetBgmTime(BGM bgm)
     {
-        return bgmSources[(int)bgm].time;
+        return bgmSources_[(int)bgm].time;
 
     }
 
     public bool IsPlayBgm(BGM bgm)
     {
-        return bgmSources[(int)bgm].isPlaying;
+        return bgmSources_[(int)bgm].isPlaying;
     }
 
     public void PlaySE(SE se)
     {
-        seSources[(int)se].Play();
+        seSources_[(int)se].Play();
 
         //// int -> enum
         //SE s = (SE)System.Enum.ToObject(typeof(SE), 1);
@@ -116,7 +115,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBGM(BGM bgm)
     {
-        bgmSources[(int)bgm].Play();
+        bgmSources_[(int)bgm].Play();
 
     }
 

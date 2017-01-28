@@ -69,7 +69,7 @@ public class MyUtil : MonoBehaviour
             {
                 info.Bpm = float.Parse(s[++idx]);
             }
-            else if (s[idx] == "level")
+            else if (s[idx] == "Level")
             {
                 info.Level = int.Parse(s[++idx]);
             }
@@ -81,6 +81,14 @@ public class MyUtil : MonoBehaviour
 
             idx++;
         }
+
+        /*
+        Debug.Log("info--------------------");
+        Debug.Log("title : " + info.Title);
+        Debug.Log("bpm : " + info.Bpm);
+        Debug.Log("level : " + info.Level);
+        Debug.Log("------------------------");
+        */
 
         return info;
 
