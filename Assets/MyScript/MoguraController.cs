@@ -13,6 +13,16 @@ public class MoguraController : Photon.MonoBehaviour
         KeyCode.G,
     };
 
+    // 1, 8, 7, 6, 5
+    static string[] KeyAssign = {
+        "Btn1",
+        "Btn2",
+        "Btn3",
+        "Btn4",
+        "Btn5"
+    };
+
+
     enum STATUS
     {
         UP,
@@ -23,6 +33,8 @@ public class MoguraController : Photon.MonoBehaviour
 
     private int laneNum_ = 0; // モグラ番号
     private STATUS status_ = STATUS.UP;
+
+    public float diff_ { get; set; }
 
     public bool DestroyByRpc;
 
@@ -50,7 +62,8 @@ public class MoguraController : Photon.MonoBehaviour
             Move();
 
             // 対応するボタンが押された瞬間
-            if (Input.GetKeyDown(keyAssign[laneNum_]))
+            //if (Input.GetKeyDown(keyAssign[laneNum_]))
+            if (Input.GetButton(KeyAssign[laneNum_]))
             {
                 Judge();
             }
@@ -88,7 +101,8 @@ public class MoguraController : Photon.MonoBehaviour
         //上に出てくる処理。上限まで来たら下がる処理へ移行
         if (status_ == STATUS.UP)
         {
-            if (transform.position.y < 0.5f)
+            //if (transform.position.y < 0.5f)
+            if (transform.position.y < 0.5f + diff_)
             {
                 spd.y = 0.05f;
                 transform.position += spd;

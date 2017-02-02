@@ -25,7 +25,8 @@ public class SoundManager : MonoBehaviour
     static SoundManager instance_ = null;
     static public SoundManager Instance
     {
-        //get { return instance_; }
+        get { return instance_; }
+        /*
         get
         {
             if (instance_ == null)
@@ -35,6 +36,7 @@ public class SoundManager : MonoBehaviour
             }
             return instance_;
         }
+        /**/
     }
 
 
@@ -59,10 +61,12 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
+        instance_ = this;
+
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
 
-        /* */
+        /*
         bgmSources_ = new AudioSource[1];
         bgmSources_[0].clip = Resources.Load("Audio/test") as AudioClip;
 
@@ -71,6 +75,13 @@ public class SoundManager : MonoBehaviour
         seSources_[1].clip = Resources.Load("Audio/pasu") as AudioClip;
         seSources_[2].clip = Resources.Load("Audio/kon") as AudioClip;
         /**/
+
+
+
+
+        //gameObject.AddComponent<AudioSource>().clip = Resources.Load("Audio/test") as AudioClip;
+
+
 
     }
 
