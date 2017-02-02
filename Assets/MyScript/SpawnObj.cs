@@ -88,8 +88,8 @@ public class SpawnObj : Photon.MonoBehaviour
                     update_result_0();
                     break;
 
-                case "scene_result":
-                    update_result();
+                case "score":
+                    update_score();
                     break;
             }
         }
@@ -188,21 +188,21 @@ public class SpawnObj : Photon.MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         //if (Input.GetButtonDown("Accept"))
         {
-            RecordManager.Instance.Reset();
-
-            Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
-            string name = "scene_titleTest";
+            //string name = "scene_titleTest";
+            string name = "score";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
         }
 
     }
 
-    void update_result()
+    void update_score()
     {
 
-        //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Accept"))
+        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetButtonDown("Accept"))
         {
+            RecordManager.Instance.Reset();
+
             Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
             string name = "scene_titleTest";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);

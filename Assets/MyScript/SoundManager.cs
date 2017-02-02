@@ -18,6 +18,8 @@ public class SoundManager : MonoBehaviour
         Kyouda = 0,
         Pasu,
         Kon,
+        Select,
+        Pikon,
         Max,
     }
 
@@ -36,8 +38,8 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public AudioSource[] bgmSources_ = new AudioSource[3];
-    public AudioSource[] seSources_ = new AudioSource[3];
+    public AudioSource[] bgmSources_ = new AudioSource[(int)BGM.Max];
+    public AudioSource[] seSources_ = new AudioSource[(int)SE.Max];
 
     AudioSource CreateAudioSource(string fname)
     {
@@ -59,7 +61,7 @@ public class SoundManager : MonoBehaviour
             "kari",
             "Holiday!",
         };
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < (int)BGM.Max; i++)
             bgmSources_[i] = CreateAudioSource(bgmName[i]);
 
         string[] seName =
@@ -67,8 +69,10 @@ public class SoundManager : MonoBehaviour
             "kyouda",
             "pasu",
             "kon",
+            "select01",
+            "coin03"
         };
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < (int)SE.Max; i++)
             seSources_[i] = CreateAudioSource(seName[i]);
 
     }
