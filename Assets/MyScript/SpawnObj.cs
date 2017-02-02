@@ -6,7 +6,6 @@ using System.Collections.Generic;
 public class SpawnObj : Photon.MonoBehaviour
 {
 
-    int frame_;
     public string userId_;
 
     int loopStartNum_ = 0;
@@ -15,6 +14,7 @@ public class SpawnObj : Photon.MonoBehaviour
     private List<float> appearTime_ = new List<float>();
     private List<int> appearLane_ = new List<int>();
 
+    int bgmType_ = 0;
 
     void Start()
     {
@@ -39,10 +39,11 @@ public class SpawnObj : Photon.MonoBehaviour
 
         userId_ = userId.ToString();
 
-
+        /*
         //ノーツの設定 
         string fname = "Test";
         NoteInfoSet(fname);
+        */
 
         //SoundManager.Instance.PlayBGM(SoundManager.BGM.Main);
 
@@ -98,6 +99,7 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_title()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetButtonDown("Accept"))
         {
             Physics2D.gravity = new Vector2(0, -9.81f); // 戻す
             string name = "scene_select";
@@ -110,7 +112,14 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_select()
     {
         if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetButtonDown("Accept"))
         {
+            //ノーツの設定 
+            var select = GameObject.Find("SelectController").GetComponent<SelectController>();
+            ReadNoteInfo(select.FileName);
+
+            bgmType_ = select.Num;
+
             string name = "scene_inGame";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
         }
@@ -124,10 +133,12 @@ public class SpawnObj : Photon.MonoBehaviour
             PhotonNetwork.room.playerCount == TotalPlayer)
         {
             isPlay_ = true;
-            SoundManager.Instance.PlayBGM(SoundManager.BGM.Main);
+            //SoundManager.Instance.PlayBGM(SoundManager.BGM.Main);
+            SoundManager.Instance.PlayBGM((SoundManager.BGM)bgmType_);
         }
 
-        float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Main);
+        //float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Main);
+        float nowTime = SoundManager.Instance.GetBgmTime((SoundManager.BGM)bgmType_);
         //Debug.Log("time:" + nowTime);
 
         // トータル拍数 = time * (BPM / 60)
@@ -152,7 +163,8 @@ public class SpawnObj : Photon.MonoBehaviour
         }
 
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (!SoundManager.Instance.IsPlayBgm(SoundManager.BGM.Main))
+        //if (!SoundManager.Instance.IsPlayBgm(SoundManager.BGM.Main))
+        if (!SoundManager.Instance.IsPlayBgm((SoundManager.BGM)bgmType_))
         {
             isPlay_ = false;
             loopStartNum_ = 0;
@@ -174,6 +186,7 @@ public class SpawnObj : Photon.MonoBehaviour
     {
 
         if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetButtonDown("Accept"))
         {
             RecordManager.Instance.Reset();
 
@@ -187,7 +200,8 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_result()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        //if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Accept"))
         {
             Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
             string name = "scene_titleTest";
@@ -235,7 +249,7 @@ public class SpawnObj : Photon.MonoBehaviour
     }
 
 
-    void NoteInfoSet(string fname)
+    void ReadNoteInfo(string fname)
     {
         ClearInfo();
 

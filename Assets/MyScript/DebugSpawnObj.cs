@@ -37,7 +37,7 @@ public class DebugSpawnObj : MonoBehaviour
         string fname = "Test";
         NoteInfoSet(fname);
 
-        SoundManager.Instance.PlayBGM(SoundManager.BGM.Main);
+        SoundManager.Instance.PlayBGM(SoundManager.BGM.Test);
 
         //for (int i = 0; i < appearTime_.Count; i++)
         //{
@@ -57,7 +57,7 @@ public class DebugSpawnObj : MonoBehaviour
     void Update()
     {
 
-        float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Main);
+        float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Test);
         //Debug.Log("time:" + nowTime);
 
         for (int i = loopStartNum; i < appearTime_.Count; i++)

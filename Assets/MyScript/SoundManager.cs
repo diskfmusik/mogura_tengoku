@@ -5,13 +5,13 @@ using System.Collections.Generic;
 public class SoundManager : MonoBehaviour
 {
 
-
     public enum BGM
     {
-        Main = 0,
+        Test = 0,
+        Kari,
+        Holiday,
         Max,
     }
-
 
     public enum SE
     {
@@ -21,93 +21,61 @@ public class SoundManager : MonoBehaviour
         Max,
     }
 
-
     static SoundManager instance_ = null;
     static public SoundManager Instance
     {
-        get { return instance_; }
-        /*
         get
         {
             if (instance_ == null)
             {
                 GameObject obj = new GameObject("SoundManager");
                 instance_ = obj.AddComponent<SoundManager>();
+                instance_.GetComponent<SoundManager>().enabled = true;
             }
             return instance_;
         }
-        /**/
     }
 
+    public AudioSource[] bgmSources_ = new AudioSource[3];
+    public AudioSource[] seSources_ = new AudioSource[3];
 
-    /*
-    [SerializeField]
-    AudioSource[] bgmSources;
+    AudioSource CreateAudioSource(string fname)
+    {
+        var source = gameObject.AddComponent<AudioSource>();
+        source.playOnAwake = false;
+        source.clip = Resources.Load("Audio/" + fname) as AudioClip;
 
-    [SerializeField]
-    AudioSource[] seSources;
-    /**/
-
-
-    /* */
-    //public AudioSource[] bgmSources_ = new AudioSource[1];
-    //public AudioSource[] seSources_ = new AudioSource[3];
-    public AudioSource[] bgmSources_;
-    public AudioSource[] seSources_;
-    /**/
-
-    //List<AudioSource> sources = new List<AudioSource>();
-
+        return source;
+    }
 
     void Awake()
     {
-        instance_ = this;
-
         // シーン切り替え時に破棄しない
         GameObject.DontDestroyOnLoad(this.gameObject);
 
-        /*
-        bgmSources_ = new AudioSource[1];
-        bgmSources_[0].clip = Resources.Load("Audio/test") as AudioClip;
+        string[] bgmName =
+        {
+            "test",
+            "kari",
+            "Holiday!",
+        };
+        for (int i = 0; i < 3; i++)
+            bgmSources_[i] = CreateAudioSource(bgmName[i]);
 
-        seSources_ = new AudioSource[3];
-        seSources_[0].clip = Resources.Load("Audio/kyouda") as AudioClip;
-        seSources_[1].clip = Resources.Load("Audio/pasu") as AudioClip;
-        seSources_[2].clip = Resources.Load("Audio/kon") as AudioClip;
-        /**/
-
-
-
-
-        //gameObject.AddComponent<AudioSource>().clip = Resources.Load("Audio/test") as AudioClip;
-
-
-
-    }
-
-    void Start()
-    {
-        //AudioSource[] audioSources = GetComponents<AudioSource>();
-
-        //for (int i = 0; i < audioSources.Length; i++)
-        //{
-        //    sources.Add(audioSources[i]);
-
-        //}
+        string[] seName =
+        {
+            "kyouda",
+            "pasu",
+            "kon",
+        };
+        for (int i = 0; i < 3; i++)
+            seSources_[i] = CreateAudioSource(seName[i]);
 
     }
-
-
-    void Update()
-    {
-
-    }
-
 
     public float GetBgmTime(BGM bgm)
     {
         return bgmSources_[(int)bgm].time;
-
     }
 
     public bool IsPlayBgm(BGM bgm)

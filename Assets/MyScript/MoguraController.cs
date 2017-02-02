@@ -62,8 +62,8 @@ public class MoguraController : Photon.MonoBehaviour
             Move();
 
             // 対応するボタンが押された瞬間
-            //if (Input.GetKeyDown(keyAssign[laneNum_]))
-            if (Input.GetButton(KeyAssign[laneNum_]))
+            if (Input.GetKeyDown(keyAssign[laneNum_]))
+            //if (Input.GetButtonDown(KeyAssign[laneNum_]))
             {
                 Judge();
             }

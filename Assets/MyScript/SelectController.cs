@@ -7,28 +7,32 @@ public class SelectController : MonoBehaviour
 
     static int Max = 3;
     int num_ = 0;
+    public int Num { get { return num_; } }
+
+    string[] fname_ =
+    {
+        "Test",
+        "Kari",
+        "Holiday"
+    };
+    public string FileName { get { return fname_[num_]; } }
+
 
     GameObject[] tuneInfo_ = new GameObject[Max];
 
+    float prevVert = 0f;
+
     void Start()
     {
-        Debug.Log("num : " + num_);
-
         tuneInfo_[0] = GameObject.Find("Tune1");
         tuneInfo_[1] = GameObject.Find("Tune2");
         tuneInfo_[2] = GameObject.Find("Tune3");
 
-        string[] fname =
-        {
-            "Test",
-            "Kari",
-            "Holiday"
-        };
 
         NoteHeaderInfo[] info = new NoteHeaderInfo[Max];
         for (int i = 0; i < Max; i++)
         {
-            info[i] = MyUtil.Instance.ReadNoteHeaderInfo(fname[i]);
+            info[i] = MyUtil.Instance.ReadNoteHeaderInfo(fname_[i]);
         }
 
         for (int i = 0; i < Max; i++)
@@ -63,6 +67,7 @@ public class SelectController : MonoBehaviour
         Color blue = new Color(10f / 255f, 42f / 255f, 195f / 255f, 100f / 255f);
         Color red = new Color(231f / 255f, 29f / 255f, 29f / 255f, 100f / 255f);
 
+        /* */
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             num_ = (++num_) % Max;
@@ -73,6 +78,24 @@ public class SelectController : MonoBehaviour
             num_ = (--num_ + Max) % Max;
             //Debug.Log("num : " + num_);
         }
+        /**/
+
+
+        /*
+        float vert = Input.GetAxis("Vertical");
+
+        if (vert > 0 &&
+            prevVert < 0)
+        {
+            num_ = (++num_) % Max;
+            //Debug.Log("num : " + num_);
+        }
+        if (Input.GetButtonDown("Left"))
+        {
+            num_ = (--num_ + Max) % Max;
+            //Debug.Log("num : " + num_);
+        }
+        */
 
 
         for (int i = 0; i < Max; i++)
@@ -85,6 +108,9 @@ public class SelectController : MonoBehaviour
 
         }
 
+
+        //Debug.Log("vert : " + vert);
+        //prevVert = vert;
 
     }
 
