@@ -67,7 +67,7 @@ public class SelectController : MonoBehaviour
         Color blue = new Color(10f / 255f, 42f / 255f, 195f / 255f, 100f / 255f);
         Color red = new Color(231f / 255f, 29f / 255f, 29f / 255f, 100f / 255f);
 
-        /* */
+        /*
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             num_ = (++num_) % Max;
@@ -81,7 +81,7 @@ public class SelectController : MonoBehaviour
         /**/
 
 
-        /*
+        /* */
         float vert = Input.GetAxis("Vertical");
 
         if (vert > 0 &&
@@ -95,7 +95,7 @@ public class SelectController : MonoBehaviour
             num_ = (--num_ + Max) % Max;
             //Debug.Log("num : " + num_);
         }
-        */
+        /**/
 
 
         for (int i = 0; i < Max; i++)

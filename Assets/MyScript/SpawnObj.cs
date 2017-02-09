@@ -9,12 +9,12 @@ public class SpawnObj : Photon.MonoBehaviour
     public string userId_;
 
     int loopStartNum_ = 0;
-    NoteHeaderInfo info_ = new NoteHeaderInfo();
+    public NoteHeaderInfo info_ = new NoteHeaderInfo();
 
     private List<float> appearTime_ = new List<float>();
     private List<int> appearLane_ = new List<int>();
 
-    int bgmType_ = 0;
+    public int bgmType_ = 0;
 
     void Start()
     {
@@ -156,7 +156,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
                 var fdiff = diff / (info_.Bpm / 60.0f / 60.0f); // 拍から frame へ変換
 
-                CreateMogura(appearLane_[i], fdiff);
+                CreateMogura(appearLane_[i], fdiff, nowTime);
                 ++loopStartNum_;
                 //break;
             }
@@ -215,10 +215,12 @@ public class SpawnObj : Photon.MonoBehaviour
     /// </summary>
     /// <param name="lane">0 ~ 4</param>
     /// <param name="fdiff">実際の再生時間 と 本来のノート出現時間 との差 (単位:frame)</param>
-    void CreateMogura(int lane, float fdiff)
+    void CreateMogura(int lane, float fdiff, float nowTime)
     {
         float x = -5.0f + 2.5f * lane;
         float spd = 0.05f; // (単位: / frame)
+
+        float y = -2.5f; // before -1.0f
 
         var pos = new Vector3(x, -1.0f + fdiff * spd, 10.0f);
 
@@ -229,8 +231,9 @@ public class SpawnObj : Photon.MonoBehaviour
             0);
 
         obj.GetComponent<MoguraController>().SetLane(lane);
-        obj.GetComponent<MoguraController>().diff_ = fdiff * spd;
-        Debug.Log("diff : " + fdiff * spd);
+        obj.GetComponent<MoguraController>().createTime_ = nowTime;
+
+        //Debug.Log("diff : " + fdiff * spd);
 
     }
 
@@ -269,6 +272,7 @@ public class SpawnObj : Photon.MonoBehaviour
             }
             else if (s[idx] == "BPM")
             {
+                //Debug.Log("bpm : " + float.Parse(s[++idx]));
                 info_.Bpm = float.Parse(s[++idx]);
             }
             else if (s[idx] == "Level")

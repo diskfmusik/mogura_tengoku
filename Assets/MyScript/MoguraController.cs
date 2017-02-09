@@ -30,19 +30,25 @@ public class MoguraController : Photon.MonoBehaviour
     }
 
     // var
+    public bool DestroyByRpc;
 
     private int laneNum_ = 0; // モグラ番号
     private STATUS status_ = STATUS.UP;
 
-    public float diff_ { get; set; }
+    public float createTime_ = 0;
 
-    public bool DestroyByRpc;
+    NoteHeaderInfo info_ = new NoteHeaderInfo();
+    int bgmType_ = 0;
 
     // func
 
     void Start()
     {
         //transform.Rotate(-90, 0, 180);
+        var so = GameObject.Find("SpawnObj").GetComponent<SpawnObj>();
+
+        info_ = so.info_;
+        bgmType_ = so.bgmType_;
 
     }
 
@@ -98,19 +104,32 @@ public class MoguraController : Photon.MonoBehaviour
     {
         Vector3 spd = new Vector3();
 
+        float nowTime = SoundManager.Instance.GetBgmTime((SoundManager.BGM)bgmType_);
+
         //上に出てくる処理。上限まで来たら下がる処理へ移行
         if (status_ == STATUS.UP)
         {
             //if (transform.position.y < 0.5f)
-            if (transform.position.y < 0.5f + diff_)
+            if (transform.position.y <= 0.5f)
             {
-                spd.y = 0.05f;
-                transform.position += spd;
+                // 0.5(s) で  dist 1.5f
+                // 1.0s            3.0f;
+
+                float diff = nowTime - createTime_;
+
+                Vector3 newPos = new Vector3();
+                newPos.x = transform.position.x;
+                newPos.z = transform.position.z;
+
+                newPos.y = -1.0f + diff * 3.0f;
+
+                //spd.y = diff * 3.0f;
+                transform.position = newPos;
             }
             else
             {
                 status_ = STATUS.DOWN;
-
+                return;
             }
         }
         //下に降りる処理。下限まで来たら待ち状態へ移行
@@ -139,7 +158,7 @@ public class MoguraController : Photon.MonoBehaviour
     void Judge()
     {
         //position.yは-1.0f~0.5f間で移行0.5fに近いほど高得点
-        if (transform.position.y > 0.1f /*0.4f*/)
+        if (transform.position.y > 0f /*0.4f*/)
         {
             CreateJudgeText("perfect_prefab");
             RecordManager.Instance.Combo++;
@@ -147,7 +166,7 @@ public class MoguraController : Photon.MonoBehaviour
             RecordManager.Instance.Score += (1000 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             ShouldDestroy();
             CreateDeadMogura();
-            SoundManager.Instance.PlaySE(SoundManager.SE.Kyouda);
+            //SoundManager.Instance.PlaySE(SoundManager.SE.Kyouda);
         }
         else if (transform.position.y > -0.5f /*0.2f*/)
         {
@@ -157,7 +176,7 @@ public class MoguraController : Photon.MonoBehaviour
             RecordManager.Instance.Score += (500 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             ShouldDestroy();
             CreateDeadMogura();
-            SoundManager.Instance.PlaySE(SoundManager.SE.Pasu);
+            //SoundManager.Instance.PlaySE(SoundManager.SE.Pasu);
         }
         else /* if (transform.position.y > 0) /**/
         {
@@ -167,7 +186,7 @@ public class MoguraController : Photon.MonoBehaviour
             RecordManager.Instance.Score += 100;
             ShouldDestroy();
             CreateDeadMogura();
-            SoundManager.Instance.PlaySE(SoundManager.SE.Kon);
+            //SoundManager.Instance.PlaySE(SoundManager.SE.Kon);
         }
 
     }
