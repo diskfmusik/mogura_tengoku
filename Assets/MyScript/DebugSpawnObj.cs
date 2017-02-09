@@ -29,15 +29,19 @@ public class DebugSpawnObj : MonoBehaviour
     private List<int> appearLane_ = new List<int>();
 
 
+    // debug
+
+    SoundManager.BGM bgmtype_ = SoundManager.BGM.Holiday;
+    string fname_ = "Holiday";
+
+
     void Start()
     {
         prefabMogura_ = Resources.Load("DebugMogura") as GameObject;
 
-        //ノーツの設定 
-        string fname = "Test";
-        NoteInfoSet(fname);
+        NoteInfoSet(fname_);
 
-        SoundManager.Instance.PlayBGM(SoundManager.BGM.Test);
+        SoundManager.Instance.PlayBGM(bgmtype_);
 
         //for (int i = 0; i < appearTime_.Count; i++)
         //{
@@ -57,7 +61,7 @@ public class DebugSpawnObj : MonoBehaviour
     void Update()
     {
 
-        float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Test);
+        float nowTime = SoundManager.Instance.GetBgmTime(bgmtype_);
         //Debug.Log("time:" + nowTime);
 
         for (int i = loopStartNum; i < appearTime_.Count; i++)
