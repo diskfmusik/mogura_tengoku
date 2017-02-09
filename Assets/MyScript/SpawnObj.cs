@@ -53,7 +53,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 1;
+    int TotalPlayer = 6;
     bool isPlay_ = false;
     void Update()
     {
@@ -221,7 +221,6 @@ public class SpawnObj : Photon.MonoBehaviour
         float spd = 0.05f; // (単位: / frame)
 
         var pos = new Vector3(x, -1.0f + fdiff * spd, 10.0f);
-        Debug.Log("diff : " + fdiff * spd);
 
         var obj = PhotonNetwork.Instantiate(
             "mogura_prefab",
@@ -231,6 +230,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
         obj.GetComponent<MoguraController>().SetLane(lane);
         obj.GetComponent<MoguraController>().diff_ = fdiff * spd;
+        Debug.Log("diff : " + fdiff * spd);
 
     }
 

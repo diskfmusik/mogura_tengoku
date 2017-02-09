@@ -67,7 +67,8 @@ public class ClientManager : MonoBehaviour
 
         var camera = GameObject.Find("Main Camera").GetComponent<Camera>();
 
-        float y = 0.46f;
+        //float y = 0.46f;
+        float y = 0.3f;
         float z = 7.8f;
 
         bool isCameraRotate = true;
@@ -83,6 +84,7 @@ public class ClientManager : MonoBehaviour
                 break;
             /* */
 
+            /* */
             case 1:
                 string sname = SceneManager.GetActiveScene().name;
                 if (sname == "scene_inGame")
@@ -92,6 +94,7 @@ public class ClientManager : MonoBehaviour
                     //camera.transform.rotation = Quaternion.Euler(0, 0, 90);
                 }
                 break;
+            /**/
 
             case 2:
                 camera.transform.position = new Vector3(-5f, y, z);

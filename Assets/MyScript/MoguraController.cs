@@ -139,7 +139,7 @@ public class MoguraController : Photon.MonoBehaviour
     void Judge()
     {
         //position.yは-1.0f~0.5f間で移行0.5fに近いほど高得点
-        if (transform.position.y > 0.4f)
+        if (transform.position.y > 0.1f /*0.4f*/)
         {
             CreateJudgeText("perfect_prefab");
             RecordManager.Instance.Combo++;
@@ -149,7 +149,7 @@ public class MoguraController : Photon.MonoBehaviour
             CreateDeadMogura();
             SoundManager.Instance.PlaySE(SoundManager.SE.Kyouda);
         }
-        else if (transform.position.y > 0.2f)
+        else if (transform.position.y > -0.5f /*0.2f*/)
         {
             CreateJudgeText("good_prefab");
             RecordManager.Instance.Combo++;
@@ -159,7 +159,7 @@ public class MoguraController : Photon.MonoBehaviour
             CreateDeadMogura();
             SoundManager.Instance.PlaySE(SoundManager.SE.Pasu);
         }
-        else /*if (transform.position.y > 0)*/
+        else /* if (transform.position.y > 0) /**/
         {
             CreateJudgeText("bad_prefab");
             RecordManager.Instance.Combo = 0;
