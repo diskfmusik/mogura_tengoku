@@ -7,6 +7,8 @@ public class DeadMoguraController : Photon.MonoBehaviour
     int count_ = 0;
     public bool DestroyByRpc;
 
+    int DeadCount = 15;
+
     void Start()
     {
 
@@ -19,7 +21,7 @@ public class DeadMoguraController : Photon.MonoBehaviour
         pos.y += 0.01f;
         transform.position = pos;
 
-        if (++count_ > 30)
+        if (++count_ > DeadCount)
         {
             ShouldDestroy();
         }

@@ -12,7 +12,7 @@ public class SelectController : MonoBehaviour
     string[] fname_ =
     {
         "Test",
-        "Kari",
+        "BitterSweet",
         "Holiday"
     };
     public string FileName { get { return fname_[num_]; } }
@@ -110,7 +110,7 @@ public class SelectController : MonoBehaviour
 
 
         //Debug.Log("vert : " + vert);
-        //prevVert = vert;
+        prevVert = vert;
 
     }
 

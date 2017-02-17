@@ -53,7 +53,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 2;
+    int TotalPlayer = 1;
     bool isPlay_ = false;
     void Update()
     {
@@ -99,7 +99,8 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_title()
     {
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Accept"))
+        //if (Input.GetButtonDown("Accept"))
+        if (Input.GetButtonDown("Btn3"))
         {
             Physics2D.gravity = new Vector2(0, -9.81f); // 戻す
             string name = "scene_select";
@@ -112,7 +113,8 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_select()
     {
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Accept"))
+        //if (Input.GetButtonDown("Accept"))
+        if (Input.GetButtonDown("Btn3"))
         {
             //ノーツの設定 
             var select = GameObject.Find("SelectController").GetComponent<SelectController>();
@@ -186,7 +188,8 @@ public class SpawnObj : Photon.MonoBehaviour
     {
 
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Accept"))
+        //if (Input.GetButtonDown("Accept"))
+        if (Input.GetButtonDown("Btn3"))
         {
             //string name = "scene_titleTest";
             string name = "score";
@@ -198,8 +201,12 @@ public class SpawnObj : Photon.MonoBehaviour
     void update_score()
     {
 
+        var gm = GameObject.Find("GameManeger").GetComponent<GameManeger>();
+        if (gm.type == false) return;
+
         //if (Input.GetKeyDown(KeyCode.Space))
-        if (Input.GetButtonDown("Accept"))
+        //if (Input.GetButtonDown("Accept"))
+        if (Input.GetButtonDown("Btn3"))
         {
             RecordManager.Instance.Reset();
 

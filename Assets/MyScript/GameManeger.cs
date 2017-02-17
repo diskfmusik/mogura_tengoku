@@ -85,8 +85,8 @@ public class GameManeger : MonoBehaviour
     void Start()
     {
         //Testよう
-        var record = GameObject.Find("RecordManager").GetComponent<RecordManager>();
-        GetComponent<Scoreload>().NewScoreSave(record.Score);
+        GetComponent<Scoreload>().NewScoreSave(Random.Range(1, 50000));
+
 
         type = false;
         type_con = false;
@@ -147,7 +147,7 @@ public class GameManeger : MonoBehaviour
                 {
                     GameObject Prehab = Instantiate(Rank_Prehabs);
                     Prehab.transform.SetParent(GameObject.Find("Canvas").transform, false);
-                    Prehab.transform.position += new Vector3(440 * i, -70 * k, 0);
+                    Prehab.transform.position += new Vector3(340 * i, -70 * k, 0);
                     Prehab.GetComponent<Rank_Insert>().Rankin(A / 2, hi_name, Sco.ToString());
 
                     PB[A] = hi_name;
@@ -160,7 +160,7 @@ public class GameManeger : MonoBehaviour
                 {
                     GameObject Prehab = Instantiate(Rank_Prehabs);
                     Prehab.transform.SetParent(GameObject.Find("Canvas").transform, false);
-                    Prehab.transform.position += new Vector3(440 * i, -70 * k, 0);
+                    Prehab.transform.position += new Vector3(340 * i, -70 * k, 0);
                     Prehab.GetComponent<Rank_Insert>().Rankin(A / 2, PA[A - Count], PA[A + 1 - Count]);
                     PB[A] = PA[A - Count];
                     PB[A + 1] = PA[A + 1 - Count];
@@ -187,7 +187,7 @@ public class GameManeger : MonoBehaviour
                 GameObject nameko = Instantiate(name_Text);
 
                 nameko.transform.SetParent(GameObject.Find("Canvas/name_peace").transform, false);
-                nameko.transform.position = new Vector3(150 + (75 * k), 250 - (100 * i), 0);
+                nameko.transform.position = new Vector3(75 + (55 * k), 250 - (100 * i), 0);
 
                 string mozi = "0";
                 switch (i)
@@ -310,6 +310,7 @@ public class GameManeger : MonoBehaviour
     }
 
 
+    float prevVert = 0f;
     // Update is called once per frame
     void Update()
     {
@@ -335,36 +336,45 @@ public class GameManeger : MonoBehaviour
         else
         {
             //キーコントロール
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+
+
+            if (Input.GetButtonDown("Select"))
             {
                 vertical_m--;
                 SoundManager.Instance.PlaySE(SoundManager.SE.Select);
             }
-            if (Input.GetKeyDown(KeyCode.DownArrow))
+            if (Input.GetButtonDown("Accept"))
             {
                 vertical_m++;
                 SoundManager.Instance.PlaySE(SoundManager.SE.Select);
-
             }
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+
+
+            float vert = Input.GetAxis("Vertical");
+
+            if (Input.GetButtonDown("Left"))
             {
                 horizontal_m--;
                 SoundManager.Instance.PlaySE(SoundManager.SE.Select);
 
             }
-            if (Input.GetKeyDown(KeyCode.RightArrow))
+            if (vert > 0 &&
+                prevVert < 0)
             {
                 horizontal_m++;
                 SoundManager.Instance.PlaySE(SoundManager.SE.Select);
 
             }
             //決定
-            if (Input.GetKeyDown(KeyCode.J))
+            //if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetButtonDown("Btn3"))
             {
                 type = true;
                 SoundManager.Instance.PlaySE(SoundManager.SE.Pikon);
             }
 
+
+            prevVert = vert;
 
             if (vertical_m < 0)
                 vertical_m += ver_max;

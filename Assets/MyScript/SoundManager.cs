@@ -58,7 +58,7 @@ public class SoundManager : MonoBehaviour
         string[] bgmName =
         {
             "test",
-            "kari",
+            "BS_2",
             "Holiday!",
         };
         for (int i = 0; i < (int)BGM.Max; i++)

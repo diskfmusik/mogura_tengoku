@@ -6,6 +6,8 @@ public class JudgeTextController : MonoBehaviour
 
     int frame_ = 0;
 
+    int DeadCount = 15;
+
     void Start()
     {
         //transform.Rotate(-90, 0, 180);
@@ -21,7 +23,7 @@ public class JudgeTextController : MonoBehaviour
         transform.position = pos;
         */
 
-        if (++frame_ > 30)
+        if (++frame_ > DeadCount)
         {
             Destroy(gameObject);
         }
