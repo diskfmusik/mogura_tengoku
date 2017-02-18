@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,8 @@ public class SpawnObj : Photon.MonoBehaviour
     private List<int> appearLane_ = new List<int>();
 
     public int bgmType_ = 0;
+
+    int countDownFrame_ = 0;
 
     void Start()
     {
@@ -53,7 +56,7 @@ public class SpawnObj : Photon.MonoBehaviour
 
 
     //int TotalPlayer = 6;
-    int TotalPlayer = 1;
+    int TotalPlayer = 6;
     bool isPlay_ = false;
     void Update()
     {
@@ -130,6 +133,16 @@ public class SpawnObj : Photon.MonoBehaviour
 
     void update_inGame()
     {
+
+        if (++countDownFrame_ < 180)
+        {
+            var go = GameObject.Find("Canvas/Ready").GetComponent<Text>();
+            if (countDownFrame_ % 30 == 0)
+                go.enabled = !go.enabled;
+
+            return;
+        }
+
         // client が揃ったら、再生する。
         if (!isPlay_ &&
             PhotonNetwork.room.playerCount == TotalPlayer)
@@ -137,6 +150,8 @@ public class SpawnObj : Photon.MonoBehaviour
             isPlay_ = true;
             //SoundManager.Instance.PlayBGM(SoundManager.BGM.Main);
             SoundManager.Instance.PlayBGM((SoundManager.BGM)bgmType_);
+
+            GameObject.Find("Canvas/Ready").GetComponent<Text>().enabled = false;
         }
 
         //float nowTime = SoundManager.Instance.GetBgmTime(SoundManager.BGM.Main);
@@ -170,6 +185,7 @@ public class SpawnObj : Photon.MonoBehaviour
         {
             isPlay_ = false;
             loopStartNum_ = 0;
+            countDownFrame_ = 0;
 
             string name = "scene_result_0";
             this.photonView.RPC("ChangeScene", PhotonTargets.All, name);
@@ -227,7 +243,7 @@ public class SpawnObj : Photon.MonoBehaviour
         float x = -5.0f + 2.5f * lane;
         float spd = 0.05f; // (単位: / frame)
 
-        float y = -2.5f; // before -1.0f
+        //float y = -2.5f; // before -1.0f
 
         var pos = new Vector3(x, -1.0f + fdiff * spd, 10.0f);
 

@@ -162,6 +162,7 @@ public class MoguraController : Photon.MonoBehaviour
         {
             CreateJudgeText("perfect_prefab");
             RecordManager.Instance.Combo++;
+            RecordManager.Instance.comboTextSize_ = 1.5f;
             RecordManager.Instance.Perfect++;
             RecordManager.Instance.Score += (1000 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             ShouldDestroy();
@@ -172,6 +173,7 @@ public class MoguraController : Photon.MonoBehaviour
         {
             CreateJudgeText("good_prefab");
             RecordManager.Instance.Combo++;
+            RecordManager.Instance.comboTextSize_ = 1.5f;
             RecordManager.Instance.Good++;
             RecordManager.Instance.Score += (500 /*テキトー*/ + RecordManager.Instance.Combo /**/);
             ShouldDestroy();
@@ -207,7 +209,7 @@ public class MoguraController : Photon.MonoBehaviour
     void CreateJudgeText(string prefabName)
     {
         var pos = transform.position;
-        pos.y -= 1.0f;
+        pos.y = -0.5f; // max 0.5f - 1.0f
         pos.z -= 0.5f;
 
         var obj = PhotonNetwork.Instantiate(

@@ -85,7 +85,8 @@ public class GameManeger : MonoBehaviour
     void Start()
     {
         //Testよう
-        GetComponent<Scoreload>().NewScoreSave(Random.Range(1, 50000));
+        var score = RecordManager.Instance.Score;
+        GetComponent<Scoreload>().NewScoreSave(score);
 
 
         type = false;

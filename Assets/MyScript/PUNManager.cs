@@ -6,11 +6,46 @@ using System.Collections;
 public class PUNManager : MonoBehaviour
 {
 
-    static private PUNManager instance_ = null;
+    //static private PUNManager instance_ = null;
 
-    Text text_;
+    //Text text_;
     private string gameVersion = "v1.00";
 
+
+    static PUNManager instance_ = null;
+    public static PUNManager Instance
+    {
+        //get { return instance_; }
+        get
+        {
+            if (instance_ == null)
+            {
+                GameObject obj = new GameObject("PUNManager");
+                instance_ = obj.AddComponent<PUNManager>();
+            }
+            return instance_;
+        }
+    }
+
+    void Awake()
+    {
+        Physics2D.gravity = new Vector2(-9.81f, -9.81f); // タイトル画面用に変える
+
+        var cm = ClientManager.Instance;
+        var mu = MyUtil.Instance;
+        var mgu = MyGUIUtil.Instance;
+        var sm = SoundManager.Instance;
+        var rm = RecordManager.Instance;
+
+        DontDestroyOnLoad(gameObject);
+
+        //text_ = GameObject.Find("Canvas/PUNmng").GetComponent<Text>();
+
+        //
+        PhotonNetwork.ConnectUsingSettings(gameVersion);
+    }
+
+    /*
     void Start()
     {
         if (instance_)
@@ -31,13 +66,13 @@ public class PUNManager : MonoBehaviour
         GameObject.DontDestroyOnLoad(this.gameObject);
         instance_ = this;
 
-        text_ = GameObject.Find("Canvas/PUNmng").GetComponent<Text>();
+        //text_ = GameObject.Find("Canvas/PUNmng").GetComponent<Text>();
 
         //
         PhotonNetwork.ConnectUsingSettings(gameVersion);
 
     }
-
+    */
 
     // マスターサーバ接続時のコールバック
     // ↑ ConnectUsingSettings() を呼んだ時に
@@ -98,11 +133,15 @@ public class PUNManager : MonoBehaviour
 
         if (PhotonNetwork.connectionStateDetailed.ToString() != "Joined")
         {
-            text_.text = PhotonNetwork.connectionStateDetailed.ToString();
+            //text_.text = PhotonNetwork.connectionStateDetailed.ToString();
+            var go = GameObject.Find("Canvas/maru").GetComponent<Text>();
+            go.text = "×";
         }
         else
         {
-            text_.text = "接続中" + " name:" + PhotonNetwork.room.name + " num:" + PhotonNetwork.room.playerCount;
+            //text_.text = "接続中" + " name:" + PhotonNetwork.room.name + " num:" + PhotonNetwork.room.playerCount;
+            var go = GameObject.Find("Canvas/maru").GetComponent<Text>();
+            go.text = "◯";
         }
 
     }

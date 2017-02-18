@@ -6,7 +6,7 @@ public class SelectController : MonoBehaviour
 {
 
     static int Max = 3;
-    int num_ = 0;
+    int num_ = 1;
     public int Num { get { return num_; } }
 
     string[] fname_ =
